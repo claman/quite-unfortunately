@@ -96,14 +96,6 @@ def main():
     elif command == 'look':
       info = current_room.getRoomInfo()
       print info
-    elif len(command) > 8 and command[0:7] == 'examine':
-      entries = command.split(' ')
-      atwas = entries[1]
-      if atwas in current_room.listObjects():
-        object_info = current_room.getObjectDescription(atwas)
-        print object_info
-      else:
-        print 'I don\'t know what that is.'
     elif command[0:2] == 'get':
       entries = command.split(' ')
       item = entries[1]
@@ -112,6 +104,14 @@ def main():
         item,'was added to your backpack.'
       else:
         print 'I can\'t do that.'
+    elif command[0:7] == 'examine':
+      entries = command.split(' ')
+      atwas = entries[1]
+      if atwas in current_room.listObjects():
+        object_info = current_room.getObjectDescription(atwas)
+        print object_info
+      else:
+        print 'I don\'t know what that is.'
     elif command == 'backpack':
       if backpack != []:
         print backpack
