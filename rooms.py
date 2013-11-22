@@ -3,7 +3,8 @@
 
 class Room():
   def __init__(self, room_name, room_desc, object_1, object_1_desc,
-              object_2, object_2_desc, object_3, object_3_desc, clue, clue_action):
+              object_2, object_2_desc, object_3, object_3_desc, clue,
+              clue_action):
     self.room_name = room_name
     self.room_desc = room_desc
     self.object_1 = object_1
@@ -21,6 +22,8 @@ class Room():
     self.east_room = None
     self.west_room = None
     self.item = None
+    self.required_item = None
+    self.solved = False
 
   def getExits(self):
     return self.exits
@@ -70,8 +73,14 @@ class Room():
   def setItem(self,item):
     self.item = item
 
+  def setRequiredItem(self,item):
+    self.required_item = item
+
+  def solve(self):
+    self.solved = True
+
 def main():
-  room1 = Room(True, False, False, True, 'Living Room', 'A generic living room',
+  room1 = Room('Living Room', 'A generic living room',
     'couch', 'This is just a couch. Get over it.', 'lamp', 'I love lamp',
     'TV', 'Just playing some static', 'May all trouble begone with OxiClean.',
     'clean couch.')
@@ -83,7 +92,7 @@ def main():
   print room1Objects[4]+ ':', room1Objects[5]
   print room1.getClue()
 
-  room2 = Room(False, True, True, True, 'Dining Room',
+  room2 = Room('Dining Room',
     'There is a table and a cabinet. The floor is covered by a thick carpet.',
     'table', 'A massive oak table.', 'cabinet',
     'Contains cutlery, utensils, and plates.', 'carpet',

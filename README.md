@@ -15,5 +15,5 @@ A house. There are rooms. There are objects in those rooms. Each room contains a
    - west
  - look
  - examine *object*
- - get *item* (currently broken)
+ - get *item*
  - backpack
