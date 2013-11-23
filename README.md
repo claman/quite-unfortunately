@@ -9,11 +9,13 @@ A house. There are rooms. There are objects in those rooms. Each room contains a
 ### Commands
 
  - directions
-   - north
-   - south
-   - east
-   - west
- - look
- - examine *object*
+   - n(orth)
+   - s(outh)
+   - e(ast)
+   - w(est)
+ - l(ook)
+ - ex(amine) *object*
  - get *item*
- - backpack
+ - open backpack
+ - read journal
+ - q(uit)
