@@ -28,23 +28,27 @@ class Room():
   def getExits(self):
     return self.exits
 
-  def setConnectedRoom(self,room,direction):
-    if direction == 'north':
+  def setConnectedRoom(self,room,direction1,direction2):
+    if direction1 == 'north':
       self.north_room = room
       self.connectedRooms.append(room)
-      self.exits.append(direction)
-    elif direction == 'south':
+      self.exits.append(direction1)
+      self.exits.append(direction2)
+    elif direction1 == 'south':
       self.south_room = room
       self.connectedRooms.append(room)
-      self.exits.append(direction)
-    elif direction == 'east':
+      self.exits.append(direction1)
+      self.exits.append(direction2)
+    elif direction1 == 'east':
       self.east_room = room
       self.connectedRooms.append(room)
-      self.exits.append(direction)
-    elif direction == 'west':
+      self.exits.append(direction1)
+      self.exits.append(direction2)
+    elif direction1 == 'west':
       self.west_room = room
       self.connectedRooms.append(room)
-      self.exits.append(direction)
+      self.exits.append(direction1)
+      self.exits.append(direction2)
 
   def getConnectedRooms(self):
     return self.connectedRooms
