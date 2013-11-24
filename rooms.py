@@ -24,6 +24,7 @@ class Room():
     self.item = None
     self.required_item = None
     self.solved = False
+    self.hint = None
 
   def getExits(self):
     return self.exits
@@ -54,7 +55,7 @@ class Room():
     return self.connectedRooms
 
   def getRoomInfo(self):
-    return 'This is the '+ self.room_name + '. ' + self.room_desc + '.'
+    return 'This is the '+ self.room_name + '. ' + self.room_desc
 
   def listObjects(self):
     return self.object_1, self.object_2, self.object_3
