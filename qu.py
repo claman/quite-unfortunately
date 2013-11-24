@@ -50,25 +50,25 @@ room6 = Room('Guest Bedroom','A generic bedroom. It\'s not nearly as nice\
   'It\'s a note reading: the Sybil is not in today. She sends her apologies.',
   'check mattress')
 # Letter = S
-room7 = ('Kitchen')
+room7 = Room('Kitchen','A','A','A','A','A','A','A','A','A')
 # Letter = D
-room8 = ('Hallway')
+room8 = Room('Hallway','A','A','A','A','A','A','A','A','A')
 # Letter = O
-room9 = ('Laundry')
+room9 = Room('Laundry','A','A','A','A','A','A','A','A','A')
 # Letter = A
-room10 = ('Garden','')
+room10 = Room('Garden','A','A','A','A','A','A','A','A','A')
 # Letter = L
-room11 = ('Office')
+room11 = Room('Office','A','A','A','A','A','A','A','A','A')
 # Letter = M
-room12 = ('Storage')
+room12 = Room('Storage','A','A','A','A','A','A','A','A','A')
 # Letter = I
-room13 = ('Library')
+room13 = Room('Library','A','A','A','A','A','A','A','A','A')
 # Letter = B
-room14 = ('Garage')
+room14 = Room('Garage','A','A','A','A','A','A','A','A','A')
 # Letter = C
-room15 = ('Art Showroom')
+room15 = Room('Art Showroom','A','A','A','A','A','A','A','A','A')
 # Letter = U
-room16 = ('Meditation Room')
+room16 = Room('Meditation Room','A','A','A','A','A','A','A','A','A')
 # Letter = N
 
 # winning: player has to find the recurring letter in each of the
@@ -76,26 +76,75 @@ room16 = ('Meditation Room')
 # player must have all items in their backpack
 # The word is discombobulating
 
-# This next block sets the connections between rooms
-room1.setConnectedRoom(room4,'north','n') # room4 is north of room1
-room1.setConnectedRoom(room2,'west','w')  # room2 is west of room1
-room2.setConnectedRoom(room1,'east','e')  # room1 is east of room2
-room2.setConnectedRoom(room3,'north','n') # room3 is north of room2
-room3.setConnectedRoom(room2,'south','s') # room2 is south of room3
-room3.setConnectedRoom(room4,'east','e')  # room4 is east of room3
-room4.setConnectedRoom(room3,'west','w')  # room3 is west of room4
-room4.setConnectedRoom(room1,'south','s') # room1 is south of room4
+# These blocks set the connections between rooms
+room1.setConnectedRoom(room4,'north','n')
+room1.setConnectedRoom(room2,'west','w')
 
-# room3 -- room4
-#   |        |
-#   |        |
-# room2 -- room1
+room2.setConnectedRoom(room5,'east','e')
+room2.setConnectedRoom(room7,'north','n')
+room2.setConnectedRoom(room15,'west','w')
+
+room3.setConnectedRoom(room2,'south','s')
+room3.setConnectedRoom(room4,'east','e')
+room3.setConnectedRoom(room7,'west','w')
+room3.setConnectedRoom(room8,'north','n')
+
+room4.setConnectedRoom(room3,'west','w')
+room4.setConnectedRoom(room1,'south','s')
+room4.setConnectedRoom(room13,'north','n')
+
+room5.setConnectedRoom(room1,'east','e')
+room5.setConnectedRoom(room3,'north','n')
+room5.setConnectedRoom(room2,'west','w')
+
+room6.setConnectedRoom(room13,'south','s')
+room6.setConnectedRoom(room11,'west','w')
+
+room7.setConnectedRoom(room2,'south','s')
+room7.setConnectedRoom(room3,'east','e')
+room7.setConnectedRoom(room9,'west','w')
+room7.setConnectedRoom(room12,'north','n')
+
+room8.setConnectedRoom(room3,'south','s')
+room8.setConnectedRoom(room13,'east','e')
+room8.setConnectedRoom(room11,'north','n')
+room8.setConnectedRoom(room12,'west','w')
+
+room9.setConnectedRoom(room7,'east','e')
+room9.setConnectedRoom(room15,'south','s')
+room9.setConnectedRoom(room14,'north','n')
+
+room10.setConnectedRoom(room12,'south','s')
+room10.setConnectedRoom(room11,'east','e')
+room10.setConnectedRoom(room16,'west','w')
+
+room11.setConnectedRoom(room8,'south','s')
+room11.setConnectedRoom(room6,'east','e')
+room11.setConnectedRoom(room10,'west','w')
+
+room12.setConnectedRoom(room10,'north','n')
+room12.setConnectedRoom(room8,'east','e')
+room12.setConnectedRoom(room7,'south','s')
+room12.setConnectedRoom(room14,'west','w')
+
+room13.setConnectedRoom(room4,'south','s')
+room13.setConnectedRoom(room8,'west','w')
+room13.setConnectedRoom(room6,'north','n')
+
+room14.setConnectedRoom(room12,'east','e')
+room14.setConnectedRoom(room16,'north','n')
+room14.setConnectedRoom(room9,'south','s')
+
+room15.setConnectedRoom(room2,'east','e')
+room15.setConnectedRoom(room9,'north','n')
+
+room16.setConnectedRoom(room10,'east','e')
+room16.setConnectedRoom(room14,'south','s')
 
 room2.setItem('key') # changes the item in room2 from None to 'key'
 room4.setRequiredItem('key') # changes required_item in room4 to 'key'
 room6.setItem('flashlight')
 # room12.setRequiredItem('flashlight')
-
 
 def playerMove(move,current_room):
   if move == 'north' or move == 'n':  # if move = north, set new_room to
@@ -117,7 +166,7 @@ def exitGame(): # being able to quit the game is a good idea
 all_items = ['key','flashlight']
 
 def main():
-  current_room = room1
+  current_room = room5
   backpack = [] # initialize backpack
   journal = []  # initialize journal
   print 'You have a journal and a backpack.'
