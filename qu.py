@@ -38,8 +38,8 @@ room5 = Room('Entry Hall','A large entry hall. Kind of dark and gloomy. \
   'It\'s very dusty in that corner. You cough a bit.','chandelier',
   'Strangely, it contains some smoking candles.','tapestry','A very old \
   tapestry depicting the hunt of a unicorn.',
-  'You rip the tapestry down from the wall, revealing a message:\
-  Do not take the oblong package. It\'s only oil.',
+  'You rip the tapestry down from the wall, revealing a message that\
+  fades as you read it: Do not take the oblong package. It\'s only oil.',
   'steal tapestry')
 # Letter = O
 room6 = Room('Guest Bedroom','A generic bedroom. It\'s not nearly as nice\
@@ -50,7 +50,12 @@ room6 = Room('Guest Bedroom','A generic bedroom. It\'s not nearly as nice\
   'It\'s a note reading: the Sybil is not in today. She sends her apologies.',
   'cut mattress')
 # Letter = S
-room7 = Room('Kitchen','A','A','A','A','A','A','A','A','A')
+room7 = Room('Kitchen','A very well stocked and clean room with granite \
+  countertops. Among other things, there\'s a French press, a dishwasher, and\
+  a large oven.','press','There are still some coffee grounds in it.',
+  'dishwasher','Inside are some clean plates and a knife.','oven',
+  'You open the oven to find a pumpkin pie. Yum.',
+  'Don\'t die here. If you do, there\'s no respawn.','eat pie')
 # Letter = D
 room8 = Room('Hallway','A','A','A','A','A','A','A','A','A')
 # Letter = O
@@ -77,13 +82,14 @@ room16 = Room('Meditation Room','A','A','A','A','A','A','A','A','A')
 # The word is discombobulating
 
 # These blocks set the connections between rooms
+# This is a corner room
 room1.setConnectedRoom(room4,'north','n')
 room1.setConnectedRoom(room5,'west','w')
-
+# This is an edge room
 room2.setConnectedRoom(room5,'east','e')
 room2.setConnectedRoom(room7,'north','n')
 room2.setConnectedRoom(room15,'west','w')
-
+# This is a center room
 room3.setConnectedRoom(room5,'south','s')
 room3.setConnectedRoom(room4,'east','e')
 room3.setConnectedRoom(room7,'west','w')
@@ -141,6 +147,7 @@ room15.setConnectedRoom(room9,'north','n')
 room16.setConnectedRoom(room10,'east','e')
 room16.setConnectedRoom(room14,'south','s')
 
+# Some rooms have hints
 room2.hint = 'There might be something under it.'
 room6.hint = 'It\'s kind of lumpy.'
 room5.hint = 'It\'s hanging a bit precariously.'
@@ -186,32 +193,37 @@ def main():
       print 'That\'s not valid. You fool.'
     elif command in ('north','south','east','west','n','s','e','w'):
       if command in current_room.getExits(): #check if move direction is valid
-        current_room = playerMove(command,current_room)
-        info = current_room.getRoomInfo()
-        print info
+        current_room = playerMove(command,current_room) # if so, move and
+        info = current_room.getRoomInfo()               # print description of
+        print info                                      # new room
       else:
         print 'You can\'t move in that direction.'
-    elif words[0] in ('look','l') and len(command) == 1:
+    elif words[0] in ('look','l') and len(command)==1: # prevents 'l <object>'
       info = current_room.getRoomInfo() # get room description
       print info
     elif words[0] == 'get':
-      if current_room.solved == True:
-        if words[1] == current_room.item and current_room.item not in backpack:
+      if current_room.solved == True: # if you've performed the clue action
+        if words[1]==current_room.item and current_room.item not in backpack:
+          # have typed in the correct word, and haven't found the item already
           backpack.append(words[1]) # adds item to backpack
           print words[1],'was added to your backpack.'
         else:
+          # otherwise you can't find it
           print 'I can\'t do that.'
       else:
+        # if you haven't performed the clue action, the item is "hidden"
         print 'I don\'t see that here.'
-    elif words[0] in ('examine','ex') and len(words) == 2:
-      if words[1] in current_room.listObjects():
-        object_info = current_room.getObjectDescription(words[1])
+    elif words[0] in ('examine','ex') and len(words) == 2: # if ex has an arg
+      if words[1] in current_room.listObjects(): # if object exists in room
+        object_info = current_room.getObjectDescription(words[1]) # set info
         if words[1]==current_room.object_3_desc and current_room.solved==False:
-          print object_info,current_room.hint # description of object
+          # if clue hasn't been found and object == object_3
+          print object_info,current_room.hint #description of object + clue hint
         elif words[1]==current_room.object_3_desc and current_room.solved==True:
+          # if clue has been found and object == object_3, just print info
           print object_info
         else:
-          print object_info
+          print object_info # prints info for the other two objects
       else:
         print 'I don\'t know what that is.'
     elif command == 'open backpack':
@@ -220,11 +232,12 @@ def main():
       else:
         print 'Your backpack is empty.'
     elif command==current_room.getClueAction() and current_room.solved==False:
-      if current_room.required_item in backpack: # if player has required item
+      # if clue hasn't been found
+      if current_room.required_item in backpack: # if player has required item:
         journal.append(current_room.clue)        # add clue to journal,
         print current_room.clue                  # print clue,
         current_room.solve()                     # set room to 'solved'.
-      elif current_room.required_item == None:   # if item is not required,
+      elif current_room.required_item == None:   # if item is not required:
         print current_room.clue                  # print clue,
         journal.append(current_room.clue)        # add clue to journal,
         current_room.solve()                     # set room to 'solved'.
