@@ -1,6 +1,6 @@
 ## Quite Unfortunately
 
-A text-based game partly inspired by dunnet. It will contain jokes and references.
+A simply, crudely built, text-based game partly inspired by dunnet. It will contain jokes and references.
 
 ### Setting
 
